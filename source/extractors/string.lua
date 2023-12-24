@@ -13,4 +13,6 @@ return function(Value, IndentationCount, Key)
   end
 
   Line = Line .. string.format(" = \"%s\"", tostring(Value))
+
+  return Line .. "\n"
 end
