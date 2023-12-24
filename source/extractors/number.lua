@@ -13,4 +13,6 @@ return function(Value, IndentationCount, Key)
   end
 
   Line = Line .. string.format(" = %d", tonumber(Value))
-  end
+
+  return Line .. "\n"
+end
