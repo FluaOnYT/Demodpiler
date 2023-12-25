@@ -18,7 +18,7 @@ function _Extract(Table, Indent)
     end
   end
   
-  return Extracted
+  return Extracted .. "}"
 end
 
 function Extract(Module)
