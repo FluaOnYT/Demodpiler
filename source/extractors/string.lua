@@ -3,5 +3,5 @@ return function(Value)
   
   Line = Line .. string.format("\"%s\"", tostring(Value))
 
-  return Line .. "\n"
+  return Line .. ",\n"
 end
