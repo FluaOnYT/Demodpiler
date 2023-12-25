@@ -6,15 +6,29 @@ local Extractors = {
 }
 
 function _Extract(Table, Indent)
-  local Extracted = "return {"
+  local Extracted = "{"
 
   for I, V in next, Table do
+    
+    local Line = ""
+
+    for i  = 1, IndentationCount do
+      Line = Line .. "  "
+    end
+
+    if type(Location) == "number" then
+      Line = Line .. string.format("[%d]", Key)
+    else
+      Location = string.gsub(Key, "\"", "\\\"")
+      Line = Line .. string.format("[\"%s\"] = ", Key)
+    end
+    
     if type(V) == "table" then
-      Extracted = Extracted .. _Extract(V, Indent + 1)
+      Extracted = Extracted .. Line .. _Extract(V, Indent + 1)
     else
       local Extrator = Extractors[type(V)]
       
-      Extracted = Extracted .. Extractor(V, Indent, I)
+      Extracted = Extracted .. Line .. Extractor(V, Indent, I)
     end
   end
   
@@ -24,5 +38,5 @@ end
 function Extract(Module)
   Module = require(Module)
 
-  return _Extract(Module)
+  return "return" .. _Extract(Module)
 end
