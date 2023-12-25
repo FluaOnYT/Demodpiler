@@ -3,5 +3,5 @@ return function(Value, IndentationCount, Key)
   
   Line = Line .. string.format("%d", tonumber(Value))
 
-  return Line .. "\n"
+  return Line .. ",\n"
 end
