@@ -18,5 +18,5 @@ return function(Value, IndentationCount, Key)
   
   Line = Line .. string.format("%s", table.concat(PResult, "."))
 
-  return Line .. "\n"
+  return Line .. ",\n"
 end
