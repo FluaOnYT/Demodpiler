@@ -1,8 +1,9 @@
 local GET = loadstring and function(...) return game:HttpGet(...) end or function(...) return game:GetService("HttpService"):GetAsync(...) end
 
 local Extractors = {
-  string = GET("https://cdn.jsdelivr.net/gh/FluaOnYT/Demodpiler@main/source/extractors/string.lua"),
-  number = GET("https://cdn.jsdelivr.net/gh/FluaOnYT/Demodpiler@main/source/extractors/number.lua"),
+  string = loadstring(GET("https://cdn.jsdelivr.net/gh/FluaOnYT/Demodpiler@main/source/extractors/string.lua"))(),
+  number = loadstring(GET("https://cdn.jsdelivr.net/gh/FluaOnYT/Demodpiler@main/source/extractors/number.lua"))(),
+  rbxobj = loadstring(GET("https://cdn.jsdelivr.net/gh/FluaOnYT/Demodpiler@main/source/extractors/rbxobj.lua"))()
 }
 
 function _Extract(Table, Indent)
@@ -25,10 +26,12 @@ function _Extract(Table, Indent)
     
     if type(V) == "table" then
       Extracted = Extracted .. Line .. _Extract(V, Indent + 1)
+    elseif V["Parent"] ~= nil then
+      Extractors["rbxobj"](V, I)
     else
       local Extrator = Extractors[type(V)]
       
-      Extracted = Extracted .. Line .. Extractor(V, Indent, I)
+      Extracted = Extracted .. Line .. Extractor(V, I)
     end
   end
   
