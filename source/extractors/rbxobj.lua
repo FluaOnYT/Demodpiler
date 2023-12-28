@@ -1,4 +1,4 @@
-return function(Value, IndentationCount, Key)
+return function(Value, Key)
   local Line = ""
   local Parents = {}
   local PResult = {}
