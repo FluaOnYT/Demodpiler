@@ -1,4 +1,4 @@
-return function(Value, IndentationCount, Key)
+return function(Value, Key)
   local Line = ""
   
   Line = Line .. string.format("%d", tonumber(Value))
