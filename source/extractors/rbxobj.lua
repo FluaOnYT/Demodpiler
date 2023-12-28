@@ -2,7 +2,7 @@ return function(Value, Key)
   local Line = ""
   local Parents = {}
   local PResult = {}
-  local Parent = Key
+  local Parent = Value
   
   while Parent ~= game do
     table.insert(Parents, Parent.Parent.Name)
