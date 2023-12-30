@@ -1,7 +1,7 @@
-return function(Value)
-  local Line = ""
-  
-  Line = Line .. string.format("\"%s\"", tostring(Value))
+return function(Value: string)
+		local Line = ""
 
-  return Line .. ",\n"
+		Line = Line .. string.format("\"%s\"", tostring(Value))
+
+		return Line
 end
