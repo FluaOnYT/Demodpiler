@@ -128,10 +128,24 @@ function _Extract(Table, Indent)
 	return Extracted .. "}"
 end
 
-function Extract(Module)
+function SendWebhook(Webhook, Message)
+    local Data = {
+        ['content'] = Message
+    }
+    
+    local JSON = game:GetService("HttpService"):JSONEncode(data)
+
+    local success, error = pcall(function()
+        game:GetService("HttpService"):PostAsync(Webhook, JSON, Enum.HttpContentType.ApplicationJson)
+    end)
+
+    return success
+end
+
+function Extract(Module, Webhook)
 	Module = require(Module)
 
-	return "return " .. _Extract(Module, 1)
+	return SendWebhook("return " .. _Extract(Module, 1))
 end
 
 return Extract
