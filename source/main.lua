@@ -1,6 +1,3 @@
-local _Extract: ({any}) -> (string)
-
-
 local Extractors = {
 	string = function(Value: string)
 		local Line = ""
@@ -144,6 +141,8 @@ function _Extract(Table, Indent)
 
 		if type(V) == "table" then
 			Extracted = Extracted .. Line .. _Extract(V, Indent + 1)
+		elseif type(V) == "SharedTable" then
+			Extracted = Extracted .. Line .. "SharedTable.new(" .. _Extract(V, Indent + 1) .. ")"
 		else
 			local Extractor = Extractors[typeof(V)]
 
