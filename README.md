@@ -14,9 +14,9 @@ It extracts in 3 steps:
 
 ### What is the current % of type support?
 
-```32.5%``` (Including unsupported ones)
+```42.5%``` (Including unsupported ones)
 
-```48.1%``` (Excluding unsupported ones that are non-extractable)
+```63.0%``` (Excluding unsupported ones that are non-extractable)
 
 ### What are the unsupported types?
 
