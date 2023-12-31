@@ -80,7 +80,7 @@ local Extractors = {
 		else
 			Line = string.format("CFrame.new(%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f)", unpack(Components))
 		end
-		
+
 		return Line
 	end,
 	UDim = function(Value: UDim)
@@ -94,20 +94,13 @@ local Extractors = {
 		local Line = ""
 
 		Line = string.format("UDim2.new(%f, %f, %f, %f)", Value.X.Scale, Value.X.Offset, Value.Y.Scale, Value.Y.Offset)
-		
-		return Line
-	end,
-	Region3 = function(Value: Region3)
-		local Line = ""
-
-		Line = string.format("Region3.new(Vector3.new(%f, %f, %f), Vector3.new(%f, %f, %f))", Value.min.X, Value.min.Y, Value.min.Z, Value.max.X, Value.max.Y, Value.max.Z)
 
 		return Line
 	end,
 	Region3int16 = function(Value: Region3int16)
 		local Line = ""
 
-		Line = string.format("Region3int16.new(Vector3int16.new(%d, %d, %d), Vector3int16.new(%d, %d, %d))", Value.min.X, Value.min.Y, Value.min.Z, Value.max.X, Value.max.Y, Value.max.Z)
+		Line = string.format("Region3int16.new(Vector3int16.new(%d, %d, %d), Vector3int16.new(%d, %d, %d))", Value.Min.X, Value.Min.Y, Value.Min.Z, Value.Max.X, Value.Max.Y, Value.Max.Z)
 
 		return Line
 	end,
@@ -117,7 +110,26 @@ local Extractors = {
 		Line = string.format("TweenInfo.new(%f, Enum.EasingStyle.%s, Enum.EasingDirection.%s, %d, %s, %d)", Value.Time, Value.EasingStyle.Name, Value.EasingDirection.Name, Value.RepeatCount, Value.Reverses and "true" or "false", Value.DelayTime)
 
 		return Line
-	end
+	end,
+	RaycastParams = function(Value: RaycastParams)
+		local Line = "RaycastParams.new()"
+		
+		return Line
+	end,
+	Ray = function(Value: Ray)
+		local Line = ""
+		
+		Line = string.format("Ray.new(Vector3.new(%f, %f, %f), Vector3.new(%f, %f, %f))", Value.Origin.X, Value.Origin.Y, Value.Origin.Z, Value.Direction.X, Value.Direction.Y, Value.Direction.Z)
+		
+		return Line
+	end,
+	PhysicalProperties = function(Value: PhysicalProperties)
+		local Line = ""
+		
+		Line = string.format("PhysicalProperties.new(%f, %f, %f, %f, %f)", Value.Density, Value.Friction, Value.Elasticity, Value.FrictionWeight, Value.ElasticityWeight)
+		
+		return Line
+	end,
 }
 
 function _Extract(Table, Indent)
@@ -141,7 +153,7 @@ function _Extract(Table, Indent)
 
 		if type(V) == "table" then
 			Extracted = Extracted .. Line .. _Extract(V, Indent + 1)
-		elseif type(V) == "SharedTable" then
+		elseif typeof(V) == "SharedTable" then
 			Extracted = Extracted .. Line .. "SharedTable.new(" .. _Extract(V, Indent + 1) .. ")"
 		else
 			local Extractor = Extractors[typeof(V)]
@@ -155,13 +167,13 @@ function _Extract(Table, Indent)
 
 		Extracted = Extracted .. ",\n"
 	end
-	
+
 	if Indent - 0 > 0 then
 		for i = 1, Indent do
 			Extracted = Extracted .. "  "
 		end
 	end
-	
+
 	return Extracted .. "}"
 end
 
