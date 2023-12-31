@@ -118,6 +118,8 @@ local Extractors = {
 		local Line = ""
 
 		Line = string.format("TweenInfo.new(%f, Enum.EasingStyle.%s, Enum.EasingDirection.%s, %d, %s, %d)", Value.Time, Value.EasingStyle.Name, Value.EasingDirection.Name, Value.RepeatCount, Value.Reverses and "true" or "false", Value.DelayTime)
+
+		return Line
 	end
 }
 
