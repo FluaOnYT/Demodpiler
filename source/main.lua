@@ -1,3 +1,6 @@
+local _Extract: ({any}) -> (string)
+
+
 local Extractors = {
 	string = function(Value: string)
 		local Line = ""
@@ -9,7 +12,7 @@ local Extractors = {
 	number = function(Value: number)
 		local Line = ""
 
-		Line = Line .. string.format("%d", Value)
+		Line = Line .. string.format("%f", Value)
 
 		return Line
 	end,
@@ -46,7 +49,7 @@ local Extractors = {
 	Vector2 = function(Value: Vector2)
 		local Line = ""
 
-		Line = string.format("Vector2.new(%d, %d)", Value.X, Value.Y)
+		Line = string.format("Vector2.new(%f, %f)", Value.X, Value.Y)
 
 		return Line
 	end,
@@ -60,7 +63,7 @@ local Extractors = {
 	Vector3 = function(Value: Vector3)
 		local Line = ""
 
-		Line = string.format("Vector3.new(%d, %d, %d)", Value.X, Value.Y, Value.Z)
+		Line = string.format("Vector3.new(%f, %f, %f)", Value.X, Value.Y, Value.Z)
 
 		return Line
 	end,
@@ -76,13 +79,46 @@ local Extractors = {
 		local Components = table.pack(Value:GetComponents())
 
 		if Components[4] == 1 and Components[8] == 1 and Components[12] == 1 then
-			Line = string.format("CFrame.new(%d, %d, %d)", Components[1], Components[2], Components[3])
+			Line = string.format("CFrame.new(%f, %f, %f)", Components[1], Components[2], Components[3])
 		else
-			Line = string.format("CFrame.new(%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)", unpack(Components))
+			Line = string.format("CFrame.new(%f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f)", unpack(Components))
 		end
 		
 		return Line
 	end,
+	UDim = function(Value: UDim)
+		local Line = ""
+
+		Line = string.format("UDim.new(%f, %f)", Value.Scale, Value.Offset)
+
+		return Line
+	end,
+	UDim2 = function(Value: UDim2)
+		local Line = ""
+
+		Line = string.format("UDim2.new(%f, %f, %f, %f)", Value.X.Scale, Value.X.Offset, Value.Y.Scale, Value.Y.Offset)
+		
+		return Line
+	end,
+	Region3 = function(Value: Region3)
+		local Line = ""
+
+		Line = string.format("Region3.new(Vector3.new(%f, %f, %f), Vector3.new(%f, %f, %f))", Value.min.X, Value.min.Y, Value.min.Z, Value.max.X, Value.max.Y, Value.max.Z)
+
+		return Line
+	end,
+	Region3int16 = function(Value: Region3int16)
+		local Line = ""
+
+		Line = string.format("Region3int16.new(Vector3int16.new(%d, %d, %d), Vector3int16.new(%d, %d, %d))", Value.min.X, Value.min.Y, Value.min.Z, Value.max.X, Value.max.Y, Value.max.Z)
+
+		return Line
+	end,
+	TweenInfo = function(Value: TweenInfo)
+		local Line = ""
+
+		Line = string.format("TweenInfo.new(%f, Enum.EasingStyle.%s, Enum.EasingDirection.%s, %d, %s, %d)", Value.Time, Value.EasingStyle.Name, Value.EasingDirection.Name, Value.RepeatCount, Value.Reverses and "true" or "false", Value.DelayTime)
+	end
 }
 
 function _Extract(Table, Indent)
@@ -96,7 +132,7 @@ function _Extract(Table, Indent)
 		end
 
 		if type(I) == "number" then
-			Line = Line .. string.format("[%d]", I)
+			Line = Line .. string.format("[%f]", I)
 		else
 			I = string.gsub(I, "\"", "\\\"")
 			Line = Line .. string.format("[\"%s\"] = ", I)
