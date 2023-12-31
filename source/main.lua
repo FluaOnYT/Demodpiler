@@ -165,6 +165,14 @@ local Extractors = {
 		
 		return Line
 	end,
+	FloatCurveKey = function(Value: FloatCurveKey)
+		local Line = ""
+		
+		Line = string.format("FloatCurveKey.new(%d, %d, Enum.KeyInterpolationMode.%s)", Value.Time, Value.Value, Value.Interpolation.Name)
+		
+		return Line
+	end,
+	
 }
 
 function SharedTabletoTable(Table)
