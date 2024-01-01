@@ -34,6 +34,9 @@ Enums
 EnumItem
 Enum
 DockWidgetPluginGuiInfo
+DateTime
 Content
 Axes
 ```
+
+One or two of these may be supported after initial release
