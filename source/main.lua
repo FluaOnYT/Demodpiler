@@ -61,7 +61,7 @@ end
 Extractors.Vector2int16 = function(Value: Vector2int16)
 	local Line = ""
 
-	Line = string.format("Vector2.new(%d, %d)", Value.X, Value.Y)
+	Line = string.format("Vector2int16.new(%d, %d)", Value.X, Value.Y)
 
 	return Line
 end
@@ -75,7 +75,7 @@ end
 Extractors.Vector3int16 = function(Value: Vector3int16)
 	local Line = ""
 
-	Line = string.format("Vector3.new(%d, %d, %d)", Value.X, Value.Y, Value.Z)
+	Line = string.format("Vector3int16.new(%d, %d, %d)", Value.X, Value.Y, Value.Z)
 
 	return Line
 end
@@ -159,7 +159,7 @@ Extractors.NumberSequence = function(Value: NumberSequence)
 		table.insert(Keypoints, Extractors.NumberSequenceKeypoint(v))
 	end
 
-	Line = string.format("NumberSequence.new({%s})", table.concat(Keypoints))
+	Line = string.format("NumberSequence.new({%s})", table.concat(Keypoints, ", "))
 
 	return Line
 end
@@ -242,7 +242,7 @@ Extractors.Axes = function(Value: Axes)
 		table.insert(Faces, "Enum.NormalId.Back")
 	end
 
-	Line = string.format("Axes.new({%s})", table.concat(Faces))
+	Line = string.format("Axes.new({%s})", table.concat(Faces, ", "))
 
 	return Line
 end
