@@ -14,7 +14,7 @@ It extracts in 3 steps:
 
 ### What is the current % of type support?
 
-```72.5%``` (Including unsupported ones)
+```67.5%``` (Including unsupported ones)
 
 ```100.0%``` (Excluding unsupported ones that are non-extractable)
 
@@ -23,10 +23,12 @@ It extracts in 3 steps:
 These types include ones unextractable by any means (no properties that can be reversed to arguments for a constructor for such types), types that do not have a constructor and types that are not used in game (i.e., studio only types)
 
 ```
+OverlapParams
 Region3
 RBXScriptSignal
 RBXScriptConnection
 RaycastResult
+RaycastParams
 Random
 Faces
 Enums
