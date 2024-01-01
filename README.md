@@ -14,9 +14,9 @@ It extracts in 3 steps:
 
 ### What is the current % of type support?
 
-```42.5%``` (Including unsupported ones)
+```72.5%``` (Including unsupported ones)
 
-```63.0%``` (Excluding unsupported ones that are non-extractable)
+```100.0%``` (Excluding unsupported ones that are non-extractable)
 
 ### What are the unsupported types?
 
@@ -28,15 +28,9 @@ RBXScriptSignal
 RBXScriptConnection
 RaycastResult
 Random
-NumberSequence
 Faces
 Enums
 EnumItem
 Enum
 DockWidgetPluginGuiInfo
-DateTime
-Content
-Axes
 ```
-
-One or two of these may be supported after initial release
